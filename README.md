@@ -1,1 +1,1 @@
-# MERN-Stack
+Exercise Tracking Application using MERN Stack 

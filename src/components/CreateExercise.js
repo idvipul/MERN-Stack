@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -17,14 +17,25 @@ class CreateExercise extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      users: ["test user"],
-      username: "tese user"
-    });
+    axios
+      .get("http://localhost:5000/users")
+      .then(res => {
+        if (res.data.length > 0) {
+          this.setState({
+            users: res.data.map(user => user.username),
+            username: res.data[0].username
+          });
+        }
+      })
+      .catch(err => console.log("Error: " + err));
   }
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onChangeDate = date => {
+    this.setState({ date });
   };
 
   onSubmit = e => {
@@ -40,11 +51,10 @@ class CreateExercise extends Component {
     console.log(exercise);
 
     // Send data to backed
-    axios.post("http://localhost:5000/exercises/add", exercise)
+    axios
+      .post("http://localhost:5000/exercises/add", exercise)
       .then(res => console.log(res.data))
       .catch(err => console.log("Error: " + err));
-  
-    // window.location = "/";
   };
 
   render() {
@@ -96,9 +106,8 @@ class CreateExercise extends Component {
             <label>Date: </label>
             <div>
               <DatePicker
-                name="date"
                 selected={this.state.date}
-                onChange={this.onChange}
+                onChange={this.onChangeDate}
               />
             </div>
           </div>

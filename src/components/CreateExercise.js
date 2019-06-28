@@ -51,10 +51,11 @@ class CreateExercise extends Component {
     console.log(exercise);
 
     // Send data to backed
-    axios
-      .post("http://localhost:5000/exercises/add", exercise)
+    axios.post("http://localhost:5000/exercises/add", exercise)
       .then(res => console.log(res.data))
       .catch(err => console.log("Error: " + err));
+
+      window.location = '/';
   };
 
   render() {

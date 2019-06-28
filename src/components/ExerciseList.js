@@ -21,13 +21,12 @@ class ExerciseList extends Component {
     super(props);
 
     this.state = {
-      exercises: []
+      exercises: [] 
     };
   }
 
   componentDidMount() {
-    axios
-      .get("http://localhost:5000/exercises")
+    axios.get("http://localhost:5000/exercises")
       .then(res => {
         this.setState({
           exercises: res.data
